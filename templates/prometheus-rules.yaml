@@ -1,0 +1,7 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: "{{ template "server.fullname" . }}-rules"
+data:
+{{ toYaml .Values.prometheus.rules | indent 2 }}  
+

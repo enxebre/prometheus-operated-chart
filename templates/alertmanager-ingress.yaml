@@ -1,0 +1,12 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: "{{.Release.Name}}-alertmanager"
+spec:
+  rules:
+  - host: "alertmanager-main.{{.Values.IngressDomain}}"
+    http:
+      paths:
+      - backend:
+          serviceName: alertmanager-main
+          servicePort: 9093

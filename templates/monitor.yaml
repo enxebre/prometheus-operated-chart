@@ -1,0 +1,21 @@
+apiVersion: "monitoring.coreos.com/v1alpha1"
+kind: "ServiceMonitor"
+metadata:
+  name: {{ template "server.fullname" . }}
+  labels:
+    app: {{ template "fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    component: "promserver"
+    heritage: "{{ .Release.Service }}"
+    release: "{{ .Release.Name }}"     
+spec:
+  selector:
+    matchLabels:
+    {{- range $key, $value := .Values.prometheus.ServiceMonitor.matchLabels }}
+      {{ $key }}: {{ $value }}
+    {{- end }}
+      component: "{{.Release.Name}}-{{.Values.componentMonitored}}"
+  endpoints:
+  - port: {{ .Values.prometheus.ServiceMonitor.port }}
+    interval: {{ .Values.prometheus.ServiceMonitor.interval }}
+

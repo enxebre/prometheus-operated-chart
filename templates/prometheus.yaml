@@ -1,0 +1,25 @@
+apiVersion: "monitoring.coreos.com/v1alpha1"
+kind: "Prometheus"
+metadata:
+  name: {{ template "server.fullname" . }}
+  labels:
+    app: {{ template "fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    component: "promserver"
+    heritage: "{{ .Release.Service }}"
+    release: "{{ .Release.Name }}"         
+    prometheus: {{ template "server.fullname" . }}
+spec:
+  replicas: 2
+  version: v1.4.0
+  serviceMonitorSelector:
+    matchExpressions:
+    - {key: app, operator: In, values: [{{ template "fullname" . }}]}
+  alerting:
+    alertmanagers:
+    - namespace: {{ .Values.prometheus.alertmanagers.namespace }}
+      name: alertmanager
+      port: web
+  resources:
+    requests:
+      memory: 400Mi

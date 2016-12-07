@@ -1,0 +1,19 @@
+apiVersion: v1
+entries:
+  prometheus-operated-chart:
+  - created: 2016-12-06T13:31:45.219796328+01:00
+    description: A Prometheus operated Helm chart for Kubernetes.
+    digest: 86ada1b91660537d0fa4e4872e5b8caf5e0ad63d65700ed179501cd13930365f
+    engine: gotpl
+    home: https://prometheus.io/
+    maintainers:
+    - email: alberto.garcial@hotmail.com
+      name: Alberto Garcia Lamela
+    name: prometheus-operated-chart
+    sources:
+    - https://github.com/prometheus/alertmanager
+    - https://github.com/prometheus/prometheus
+    urls:
+    - http://127.0.0.1:8879/prometheus-operated-chart-0.0.1.tgz
+    version: 0.0.1
+generated: 2016-12-06T13:31:45.217455183+01:00

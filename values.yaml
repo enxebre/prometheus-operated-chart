@@ -1,0 +1,34 @@
+IngressDomain: test
+
+prometheus:
+  ServiceMonitor:
+    matchLabels:
+      # app: example-app
+    port: web
+    interval: 30s
+
+  alertmanagers:
+    namespace: default
+
+  rules:
+    test.rules: |
+      ALERT SomethingIsUp
+      IF up == 1
+
+alertmanager:
+  alertmanagerFiles:
+    alertmanager.yaml: |
+      global:
+        resolve_timeout: 5m
+      route:
+        group_by: ['job']
+        group_wait: 30s
+        group_interval: 1m
+        repeat_interval: 12h
+        receiver: 'default-receiver'
+      receivers:
+      - name: default-receiver
+        slack_configs:
+        - api_url: 'test'
+          channel: '#general'
+          send_resolved: true
